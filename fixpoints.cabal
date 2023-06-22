@@ -1,0 +1,34 @@
+cabal-version:      3.4
+name:               fixpoints
+version:            0.0.0
+synopsis:           Fixpoint Combinators of Functors in Haskell
+-- description:
+license:            BSD-3-Clause
+license-file:       LICENSE
+-- author:
+maintainer:         exclusiveandgate@gmail.com
+-- copyright:
+build-type:         Simple
+extra-doc-files:    CHANGELOG.md
+-- extra-source-files:
+
+common common-options
+    default-language: Haskell2010
+    ghc-options: -Wall
+    default-extensions:
+        ConstraintKinds
+        DataKinds
+        DefaultSignatures
+        LambdaCase
+        NoStarIsType
+
+library
+    import:           common-options
+    hs-source-dirs:   src
+
+    exposed-modules:
+        CoInductive
+
+    build-depends:
+        base         >= 4.17.0.0
+
