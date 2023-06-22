@@ -5,35 +5,23 @@
 module CoInductive where
 
 
--- * (Co-)Inductive Fixed Point Types
+-- * Mu - Smallest Fixed Point
 
 -- |
--- Least fixed point of a functor.
---
--- Evidence for this type is a catamorphism, equivalent to a
--- fold or recursor.
--- 
--- Programmatically, this type allows induction.
--- 
--- Categorically, this is the type of initial @f@-algebras.
+-- @'Mu' f@ is the smallest fixed point of the functor @f@.
 --
 data Mu f = Mu (forall a. (f a -> a) -> a)
 
 
+-- * Nu - Greatest Fixed Point
+
 -- |
--- Greatest fixed point of a functor.
---
--- Evidence for this type is a point of convergence (possibly at
--- infinity), along with an anamorphism for unfolding it.
--- 
--- Programmatically, this type allows co-induction.
--- 
--- Categorically, this is the type of final @f@-coalgebras.
+-- @'Nu' f@ is the greatest fixed point of the functor @f@.
 --
 data Nu f = forall a. Nu (a -> f a) a
 
 
--- * Categorical Morphisms
+-- * Categorical Properties
 
 -- |
 -- The unique morphism of an initial @f@-algebra which sends
