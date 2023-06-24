@@ -30,8 +30,8 @@ foldMu f (Mu cata) = cata f
 -- |
 --
 --
-inMu :: Functor f => f (Mu f) -> Mu f
-inMu x = Mu $ \f -> f (fmap (foldMu f) x)
+intoMu :: Functor f => f (Mu f) -> Mu f
+intoMu x = Mu $ \f -> f (fmap (foldMu f) x)
 
 
 -- * Nu - Greatest Fixed Point
@@ -44,7 +44,7 @@ inMu x = Mu $ \f -> f (fmap (foldMu f) x)
 --    a map @'Nu' out :: x -> 'Nu' f@.
 --
 --  - Coalgebraic or @f@-consistent: there is a unique morphism
---    @'outNu' :: 'Nu' f -> f ('Nu' f)@.
+--    @'outOfNu' :: 'Nu' f -> f ('Nu' f)@.
 --
 -- By Lambek's lemma, @'Nu' f@ is the greatest fixed point of @f@.
 --
@@ -53,8 +53,8 @@ data Nu f = forall a. Nu (a -> f a) a
 -- |
 -- The unique morphism of a terminal @f@-coalgebra.
 --
-outNu :: Functor f => Nu f -> f (Nu f)
-outNu (Nu f x) = fmap (Nu f) (f x)
+outOfNu :: Functor f => Nu f -> f (Nu f)
+outOfNu (Nu f x) = fmap (Nu f) (f x)
 
 
 -- * Categorical Properties
