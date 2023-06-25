@@ -15,7 +15,7 @@ module CoInductive where
 --    a map @'foldMu' f :: 'Mu' f -> x@.
 --
 --  - Algebraic or @f@-closed: there is a unique morphism
---    @'inMu' :: f ('Mu' f) -> 'Mu' f@.
+--    @'intoMu' :: f ('Mu' f) -> 'Mu' f@.
 --
 -- By Lambek's lemma, @'Mu' f@ is the least fixed point of @f@.
 --
