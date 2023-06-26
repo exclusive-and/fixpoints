@@ -1,7 +1,4 @@
 
-{-# LANGUAGE ExistentialQuantification  #-}
-{-# LANGUAGE RankNTypes                 #-}
-
 module CoInductive where
 
 
@@ -9,7 +6,7 @@ module CoInductive where
 ---------------------------------------------------------------------
 
 -- |
--- @'Mu' f@ is the least fixed point of @f@ by Lambek's lemma.
+-- The least fixed point of @f@ by Lambek's lemma.
 --
 data Mu f = Mu (forall a. (f a -> a) -> a)
 
@@ -31,7 +28,7 @@ foldMu f (Mu cata) = cata f
 ---------------------------------------------------------------------
 
 -- |
--- @'Nu' f@ is the greatest fixed point of @f@ by Lambek's lemma.
+-- The greatest fixed point of @f@ by Lambek's lemma.
 --
 data Nu f = forall a. Nu (a -> f a) a
 
