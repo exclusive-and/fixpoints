@@ -11,7 +11,7 @@ module CoInductive where
 data Mu f = Mu (forall a. (f a -> a) -> a)
 
 -- |
--- @'Mu' f@ is algebraic or @f@-closed.
+-- @'Mu' f@ is algebraic (equivalently @f@-closed).
 --
 intoMu :: Functor f => f (Mu f) -> Mu f
 intoMu x = Mu $ \f -> f (fmap (foldMu f) x)
@@ -33,7 +33,7 @@ foldMu f (Mu cata) = cata f
 data Nu f = forall a. Nu (a -> f a) a
 
 -- |
--- @'Nu' f@ is coalgebraic of @f@-consistent
+-- @'Nu' f@ is coalgebraic (equivalently @f@-consistent).
 --
 outOfNu :: Functor f => Nu f -> f (Nu f)
 outOfNu (Nu f x) = fmap (Nu f) (f x)
