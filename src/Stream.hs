@@ -16,7 +16,7 @@ unstream (x :- xs) = (x, xs)
 type NuStream a = Nu ((,) a)
 
 nuUnstream :: NuStream a -> (a, NuStream a)
-nuUnstream = outNu
+nuUnstream = outOfNu
 
 streamToNuStream :: Stream a -> NuStream a
 streamToNuStream = Nu unstream
@@ -24,4 +24,4 @@ streamToNuStream = Nu unstream
 nuStreamToStream :: NuStream a -> Stream a
 nuStreamToStream y = x :- (nuStreamToStream xs)
     where
-    (x, xs) = outNu y
+    (x, xs) = outOfNu y
