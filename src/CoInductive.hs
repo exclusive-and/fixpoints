@@ -8,7 +8,7 @@ module CoInductive where
 -- |
 -- The least fixed point of @f@ by Lambek's lemma.
 --
-data Mu f = Mu (forall a. (f a -> a) -> a)
+data Mu f = Mu (forall x. (f x -> x) -> x)
 
 -- |
 -- @'Mu' f@ is algebraic (equivalently @f@-closed).
@@ -20,7 +20,7 @@ intoMu x = Mu $ \f -> f (fmap (foldMu f) x)
 -- @'Mu' f@ is initial: given an algebraic type @(x, f x -> x)@,
 -- there is a map @'foldMu' f :: 'Mu' f -> x@.
 --
-foldMu :: (f a -> a) -> Mu f -> a
+foldMu :: (f x -> x) -> Mu f -> x
 foldMu f (Mu cata) = cata f
 
 
@@ -30,7 +30,7 @@ foldMu f (Mu cata) = cata f
 -- |
 -- The greatest fixed point of @f@ by Lambek's lemma.
 --
-data Nu f = forall a. Nu (a -> f a) a
+data Nu f = forall x. Nu (x -> f x) x
 
 -- |
 -- @'Nu' f@ is coalgebraic (equivalently @f@-consistent).
