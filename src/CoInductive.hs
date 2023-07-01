@@ -14,7 +14,9 @@ data Mu f = Mu (forall x. (f x -> x) -> x)
 -- @'Mu' f@ is algebraic (equivalently @f@-closed).
 --
 intoMu :: Functor f => f (Mu f) -> Mu f
-intoMu x = Mu $ \f -> f (fmap (foldMu f) x)
+intoMu x = Mu go
+    where
+    go f = f (fmap (foldMu f) x)
 
 -- |
 -- @'Mu' f@ is initial: given an algebraic type @(x, f x -> x)@,
