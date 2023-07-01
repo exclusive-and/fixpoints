@@ -22,7 +22,7 @@ intoMu x = Mu go
 -- @'Mu' f@ is initial: given an algebraic type @(x, f x -> x)@,
 -- there is a map @'foldMu' f :: 'Mu' f -> x@.
 --
-foldMu :: (f x -> x) -> Mu f -> x
+foldMu :: Functor f => (f x -> x) -> Mu f -> x
 foldMu f (Mu cata) = cata f
 
 
@@ -44,7 +44,7 @@ outOfNu (Nu f x) = fmap (Nu f) (f x)
 -- @'Nu' f@ is terminal: given a coalgebraic type @(x, x -> f x)@,
 -- there is a map @'unfoldNu' f :: x -> 'Nu' f@.
 --
-unfoldNu :: (x -> f x) -> x -> Nu f
+unfoldNu :: Functor f => (x -> f x) -> x -> Nu f
 unfoldNu = Nu
 
 
