@@ -32,6 +32,14 @@ library
     exposed-modules:
         CoInductive
 
+    other-modules:
+        CoNat
+        Expr
+        Nat
+        Stream
+        Unit
+        Void
+
     build-depends:
         base         >= 4.17.0.0
 
