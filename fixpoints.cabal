@@ -30,7 +30,7 @@ library
     hs-source-dirs:   src
 
     exposed-modules:
-        CoInductive
+        CoAlgebra
 
     other-modules:
         CoNat

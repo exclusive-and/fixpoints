@@ -1,5 +1,5 @@
 
-module CoInductive where
+module CoAlgebra where
 
 
 -- * Mu - Least Fixed Point

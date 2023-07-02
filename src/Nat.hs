@@ -1,7 +1,7 @@
 
 module Nat where
 
-import CoInductive
+import CoAlgebra
 
 
 -- * Standard Natural Numbers

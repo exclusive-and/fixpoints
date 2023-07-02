@@ -1,7 +1,7 @@
 
 module Unit where
 
-import CoInductive
+import CoAlgebra
 
 import Data.Functor.Identity
 

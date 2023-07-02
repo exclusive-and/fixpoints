@@ -3,7 +3,7 @@
 
 module Stream where
 
-import CoInductive
+import CoAlgebra
 
 
 -- * Standard Infinite Stream

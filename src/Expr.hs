@@ -1,7 +1,7 @@
 
 module Expr where
 
-import CoInductive
+import CoAlgebra
 
 
 -- * Least Fixed Point Example: Numerical Expressions

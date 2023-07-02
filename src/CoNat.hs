@@ -1,7 +1,7 @@
 
 module CoNat where
 
-import CoInductive
+import CoAlgebra
 
 
 -- * Standard Co-Natural Numbers

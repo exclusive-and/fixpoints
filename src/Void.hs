@@ -3,7 +3,7 @@
 
 module Void where
 
-import CoInductive
+import CoAlgebra
 
 import Data.Functor.Identity
 
