@@ -4,7 +4,21 @@ module Expr where
 import CoInductive
 
 
-data Op lit a = Lit lit | Add a a | Sub a a | Mul a a
+-- * Least Fixed Point Example: Numerical Expressions
+---------------------------------------------------------------------
+
+data Op lit x
+    = Lit lit
+    | Add x x
+    | Sub x x
+    | Mul x x
+
+instance Functor (Op lit) where
+    fmap f = \case
+        Lit lit -> Lit lit
+        Add a b -> Add (f a) (f b)
+        Sub a b -> Sub (f a) (f b)
+        Mul a b -> Mul (f a) (f b)
 
 type Expr lit = Mu (Op lit)
 

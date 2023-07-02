@@ -22,6 +22,9 @@ common common-options
         RankNTypes
         TupleSections
 
+    other-extensions:
+        EmptyCase
+
 library
     import:           common-options
     hs-source-dirs:   src
