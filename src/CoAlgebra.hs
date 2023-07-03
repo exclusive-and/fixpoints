@@ -2,6 +2,12 @@
 module CoAlgebra where
 
 
+-- |
+-- Evidence of @x ~ f x@ as a result of Lambek's theorem.
+-- 
+data Lambek f x = Lambek (x -> x) (f x -> f x)
+
+
 -- * Mu - Least Fixed Point
 ---------------------------------------------------------------------
 
@@ -25,6 +31,15 @@ intoMu x = Mu go
 foldMu :: Functor f => (f x -> x) -> Mu f -> x
 foldMu f (Mu cata) = cata f
 
+-- |
+-- Proof of Lambek's lemma for @'Mu' f@.
+-- 
+lambekMu :: Functor f => Lambek f (Mu f)
+lambekMu = Lambek on_Mu on_fMu
+    where
+    on_Mu   = intoMu . foldMu (fmap intoMu)
+    on_fMu  = foldMu (fmap intoMu) . intoMu
+
 
 -- * Nu - Greatest Fixed Point
 ---------------------------------------------------------------------
@@ -47,7 +62,16 @@ outOfNu (Nu f x) = fmap (Nu f) (f x)
 unfoldNu :: Functor f => (x -> f x) -> x -> Nu f
 unfoldNu = Nu
 
+-- |
+-- Proof of Lambek's lemma for @'Nu' f@.
+-- 
+lambekNu :: Functor f => Lambek f (Nu f)
+lambekNu = Lambek on_Nu on_fNu
+    where
+    on_Nu   = unfoldNu (fmap outOfNu) . outOfNu
+    on_fNu  = outOfNu . unfoldNu (fmap outOfNu)
 
+    
 -- * Categorical Properties
 ---------------------------------------------------------------------
 
