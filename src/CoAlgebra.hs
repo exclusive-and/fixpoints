@@ -3,7 +3,7 @@ module CoAlgebra where
 
 
 -- |
--- Evidence of @x ~ f x@ as a result of Lambek's theorem.
+-- Evidence of @x ~ f x@ as a result of Lambek's lemma.
 -- 
 data Lambek f x = Lambek (x -> x) (f x -> f x)
 
