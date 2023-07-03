@@ -32,7 +32,7 @@ foldMu :: Functor f => (f x -> x) -> Mu f -> x
 foldMu f (Mu cata) = cata f
 
 -- |
--- Proof of Lambek's lemma for @'Mu' f@.
+-- Evidence that @'Mu' f@ is indeed a fixed point of @f@.
 -- 
 lambekMu :: Functor f => Lambek f (Mu f)
 lambekMu = Lambek on_Mu on_fMu
@@ -63,7 +63,7 @@ unfoldNu :: Functor f => (x -> f x) -> x -> Nu f
 unfoldNu = Nu
 
 -- |
--- Proof of Lambek's lemma for @'Nu' f@.
+-- Evidence that @'Nu' f@ is indeed a fixed point of @f@.
 -- 
 lambekNu :: Functor f => Lambek f (Nu f)
 lambekNu = Lambek on_Nu on_fNu
