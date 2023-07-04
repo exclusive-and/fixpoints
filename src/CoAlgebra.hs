@@ -3,7 +3,7 @@ module CoAlgebra where
 
 
 -- |
--- Evidence of @x ~ f x@ as a result of Lambek's lemma.
+-- Evidence that @x ~ f x@ given two-sided inverses.
 -- 
 data Lambek f x = Lambek (x -> x) (f x -> f x)
 
@@ -12,7 +12,7 @@ data Lambek f x = Lambek (x -> x) (f x -> f x)
 ---------------------------------------------------------------------
 
 -- |
--- The least fixed point of @f@ by Lambek's lemma.
+-- The least fixed point of @f@ by the lemma 'lambekMu'.
 --
 data Mu f = Mu (forall x. (f x -> x) -> x)
 
@@ -32,7 +32,7 @@ foldMu :: Functor f => (f x -> x) -> Mu f -> x
 foldMu f (Mu cata) = cata f
 
 -- |
--- Evidence that @'Mu' f@ is indeed a fixed point of @f@.
+-- Lambek's proof that @'Mu' f@ is a fixed point of @f@.
 -- 
 lambekMu :: Functor f => Lambek f (Mu f)
 lambekMu = Lambek on_Mu on_fMu
@@ -45,7 +45,7 @@ lambekMu = Lambek on_Mu on_fMu
 ---------------------------------------------------------------------
 
 -- |
--- The greatest fixed point of @f@ by Lambek's lemma.
+-- The greatest fixed point of @f@ by the lemma 'lambekNu'.
 --
 data Nu f = forall x. Nu (x -> f x) x
 
@@ -63,7 +63,7 @@ unfoldNu :: Functor f => (x -> f x) -> x -> Nu f
 unfoldNu = Nu
 
 -- |
--- Evidence that @'Nu' f@ is indeed a fixed point of @f@.
+-- Lambek's proof that @'Nu' f@ is a fixed point of @f@.
 -- 
 lambekNu :: Functor f => Lambek f (Nu f)
 lambekNu = Lambek on_Nu on_fNu
