@@ -3,9 +3,10 @@ module CoAlgebra where
 
 
 -- |
--- Evidence that @x ~ f x@ given two-sided inverses.
+-- Evidence that @x ~ f x@ given a pair of inverses.
 -- 
-data Lambek f x = Lambek (x -> x) (f x -> f x)
+data Lambek f x
+    = Lambek (x -> f x) (f x -> x)
 
 
 -- * Mu - Least Fixed Point
@@ -37,8 +38,8 @@ foldMu f (Mu cata) = cata f
 lambekMu :: Functor f => Lambek f (Mu f)
 lambekMu = Lambek muSide fmuSide
     where
-    muSide  = intoMu . foldMu (fmap intoMu)
-    fmuSide = foldMu (fmap intoMu) . intoMu
+    muSide  = foldMu (fmap intoMu)
+    fmuSide = intoMu
 
 
 -- * Nu - Greatest Fixed Point
@@ -68,8 +69,8 @@ unfoldNu = Nu
 lambekNu :: Functor f => Lambek f (Nu f)
 lambekNu = Lambek nuSide fnuSide
     where
-    nuSide  = unfoldNu (fmap outOfNu) . outOfNu
-    fnuSide = outOfNu . unfoldNu (fmap outOfNu)
+    nuSide  = outOfNu
+    fnuSide = unfoldNu (fmap outOfNu)
 
     
 -- * Categorical Properties
