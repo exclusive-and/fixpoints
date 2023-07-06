@@ -35,10 +35,10 @@ foldMu f (Mu cata) = cata f
 -- Lambek's proof that @'Mu' f@ is a fixed point of @f@.
 -- 
 lambekMu :: Functor f => Lambek f (Mu f)
-lambekMu = Lambek on_Mu on_fMu
+lambekMu = Lambek muSide fmuSide
     where
-    on_Mu   = intoMu . foldMu (fmap intoMu)
-    on_fMu  = foldMu (fmap intoMu) . intoMu
+    muSide  = intoMu . foldMu (fmap intoMu)
+    fmuSide = foldMu (fmap intoMu) . intoMu
 
 
 -- * Nu - Greatest Fixed Point
@@ -66,10 +66,10 @@ unfoldNu = Nu
 -- Lambek's proof that @'Nu' f@ is a fixed point of @f@.
 -- 
 lambekNu :: Functor f => Lambek f (Nu f)
-lambekNu = Lambek on_Nu on_fNu
+lambekNu = Lambek nuSide fnuSide
     where
-    on_Nu   = unfoldNu (fmap outOfNu) . outOfNu
-    on_fNu  = outOfNu . unfoldNu (fmap outOfNu)
+    nuSide  = unfoldNu (fmap outOfNu) . outOfNu
+    fnuSide = outOfNu . unfoldNu (fmap outOfNu)
 
     
 -- * Categorical Properties
