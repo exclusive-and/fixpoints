@@ -37,8 +37,8 @@ foldMu f (Mu cata) = cata f
 lambekMu :: Functor f => Lambek f (Mu f)
 lambekMu = Lambek fmuFacing muFacing
     where
-    muFacing    = intoMu
-    fmuFacing   = foldMu (fmap intoMu)
+    muFacing    = intoMu                -- :: f (Mu f) ->    Mu f
+    fmuFacing   = foldMu (fmap intoMu)  -- ::    Mu f  -> f (Mu f)
 
 
 -- * Nu - Greatest Fixed Point
@@ -68,8 +68,8 @@ unfoldNu = Nu
 lambekNu :: Functor f => Lambek f (Nu f)
 lambekNu = Lambek fnuFacing nuFacing
     where
-    nuFacing    = unfoldNu (fmap outOfNu)
-    fnuFacing   = outOfNu
+    nuFacing  = unfoldNu (fmap outOfNu) -- :: f (Nu f) ->    Nu f
+    fnuFacing = outOfNu                 -- ::    Nu f  -> f (Nu f)
 
     
 -- * Categorical Properties
