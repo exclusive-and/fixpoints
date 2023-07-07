@@ -3,23 +3,38 @@
   description = "Fixpoints of Functors in Haskell";
 
   inputs = {
-    nixpkgs.url   = "nixpkgs/nixos-unstable";
-    hasklang.url  = "github:haskell/haskell-language-server/783905f211ac63edf982dd1889c671653327e441";
+    nixpkgs.url = "nixpkgs/nixos-unstable";
   };
 
-  outputs = { self, nixpkgs, hasklang }:
+  outputs = { self, nixpkgs }:
     let
+      # Overlay to manage dependencies in the Nix Haskell package set.
+      haskOverlay = final: prev:
+        {
+          hask      = final.haskell.packages.ghc96;
+          fixpoints = final.hask.callCabal2nix "fixpoints" ./. {};
+        };
+
       system = "x86_64-linux";
-
-      pkgs = import nixpkgs { inherit system; };
-
-      ghc = pkgs.haskell.packages.ghc96;
+      pkgs = import nixpkgs { inherit system; overlays = [ haskOverlay ]; };
     in
     {
-      packages.${system}.default = ghc.callCabal2nix "fixpoints" ./. {};
+      overlays.default = haskOverlay;
 
-      devShells.${system}.default = pkgs.mkShell {
-        packages = [ hasklang.packages.${system}.haskell-language-server-961 ];
+      packages.${system}.default = pkgs.fixpoints;
+
+      # Build a development shell for this package.
+      devShells.${system}.default = pkgs.hask.shellFor {
+        packages = _: [ pkgs.fixpoints ];
+
+        # Library dependencies.
+        buildInputs = [];
+
+        # Add Haskell Language Server and Cabal as development tools.
+        nativeBuildInputs = [
+          pkgs.hask.cabal-install
+          pkgs.hask.haskell-language-server
+        ];
       };
     };
 }
