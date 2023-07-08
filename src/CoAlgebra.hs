@@ -5,6 +5,9 @@ module CoAlgebra where
 -- |
 -- Evidence that @x ~ f x@ given a pair of inverses.
 -- 
+-- See <https://ncatlab.org/nlab/show/initial+algebra+of+an+endofunctor>
+-- theorem 2.2 for details on how the lemma works.
+-- 
 data Lambek f x = Lambek (x -> f x) (f x -> x)
 
 
@@ -26,7 +29,8 @@ lambekMu = Lambek initial algebra
     initial = foldMu (fmap intoMu)
 
 -- |
--- @'Mu' f@ is an algebra and is @f@-closed.
+-- @'Mu' f@ is an [@f@-algebra](https://en.wikipedia.org/wiki/F-algebra),
+-- and it is [@f@-closed](https://en.wikipedia.org/wiki/Coinduction).
 --
 intoMu :: Functor f => f (Mu f) -> Mu f
 intoMu x = Mu go
@@ -34,8 +38,13 @@ intoMu x = Mu go
     go f = f (fmap (foldMu f) x)
 
 -- |
--- @'Mu' f@ is initial: given an algebraic type @(x, f x -> x)@,
--- there is a map @'foldMu' f :: 'Mu' f -> x@.
+-- @'Mu' f@ is an initial object: given any @f@-algebra
+-- @(x, f x -> x)@, we can create a morphism @'Mu' f -> x@:
+-- 
+-- @
+--  muInitial :: 'Functor' f => (x, f x -> x) -> ('Mu' f -> x)
+--  muInitial (_, f) = foldMu f
+-- @
 --
 foldMu :: Functor f => (f x -> x) -> Mu f -> x
 foldMu f (Mu cata) = cata f
@@ -59,14 +68,20 @@ lambekNu = Lambek coalgebra terminal
     terminal    = unfoldNu (fmap outOfNu)
 
 -- |
--- @'Nu' f@ is a coalgebra and is @f@-consistent.
+-- @'Nu' f@ is an [@f@-coalgebra](https://en.wikipedia.org/wiki/F-coalgebra),
+-- and it is [@f@-consistent](https://en.wikipedia.org/wiki/Coinduction).
 --
 outOfNu :: Functor f => Nu f -> f (Nu f)
 outOfNu (Nu f x) = fmap (Nu f) (f x)
 
 -- |
--- @'Nu' f@ is terminal: given a coalgebraic type @(x, x -> f x)@,
--- there is a map @'unfoldNu' f :: x -> 'Nu' f@.
+-- @'Nu' f@ is a terminal object: given any @f@-coalgebra
+-- @(x, x -> f x)@, we can create a morphism @x -> 'Nu' f@:
+-- 
+-- @
+--  nuTerminal :: 'Functor' f => (x, x -> f x) -> (x -> 'Nu' f)
+--  nuTerminal (_, f) = unfoldNu f
+-- @
 --
 unfoldNu :: Functor f => (x -> f x) -> x -> Nu f
 unfoldNu = Nu
