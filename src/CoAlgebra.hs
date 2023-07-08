@@ -17,7 +17,7 @@ data Lambek f x = Lambek (x -> f x) (f x -> x)
 data Mu f = Mu (forall x. (f x -> x) -> x)
 
 -- |
--- @'Mu' f@ is algebraic (equivalently @f@-closed).
+-- @'Mu' f@ is an algebra and is @f@-closed.
 --
 intoMu :: Functor f => f (Mu f) -> Mu f
 intoMu x = Mu go
@@ -35,22 +35,22 @@ foldMu f (Mu cata) = cata f
 -- Lambek's proof that @'Mu' f@ is a fixed point of @f@.
 -- 
 lambekMu :: Functor f => Lambek f (Mu f)
-lambekMu = Lambek fmuFacing muFacing
+lambekMu = Lambek initial algebra
     where
-    muFacing    = intoMu                -- :: f (Mu f) ->    Mu f
-    fmuFacing   = foldMu (fmap intoMu)  -- ::    Mu f  -> f (Mu f)
+    algebra = intoMu
+    initial = foldMu (fmap intoMu)
 
 
 -- * Nu - Greatest Fixed Point
 ---------------------------------------------------------------------
 
 -- |
--- The greatest fixed point of @f@ by the lemma 'lambekNu'.
+-- The greatest fixed point of @f@ by 'lambekNu'.
 --
 data Nu f = forall x. Nu (x -> f x) x
 
 -- |
--- @'Nu' f@ is coalgebraic (equivalently @f@-consistent).
+-- @'Nu' f@ is a coalgebra and is @f@-consistent.
 --
 outOfNu :: Functor f => Nu f -> f (Nu f)
 outOfNu (Nu f x) = fmap (Nu f) (f x)
@@ -66,10 +66,10 @@ unfoldNu = Nu
 -- Lambek's proof that @'Nu' f@ is a fixed point of @f@.
 -- 
 lambekNu :: Functor f => Lambek f (Nu f)
-lambekNu = Lambek fnuFacing nuFacing
+lambekNu = Lambek coalgebra terminal
     where
-    nuFacing  = unfoldNu (fmap outOfNu) -- :: f (Nu f) ->    Nu f
-    fnuFacing = outOfNu                 -- ::    Nu f  -> f (Nu f)
+    coalgebra   = outOfNu
+    terminal    = unfoldNu (fmap outOfNu)
 
     
 -- * Categorical Properties
