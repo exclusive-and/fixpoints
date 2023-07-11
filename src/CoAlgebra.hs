@@ -6,21 +6,21 @@ module CoAlgebra where
 -- Categorical evidence that @x ~ f x@ for initial algebras and
 -- terminal coalgebras.
 -- 
--- *** Outline of the Lemma
+-- === Outline of the Lemma
 -- 
 -- An initial algebra (dually, terminal coalgebra) on @x@ has the following
 -- morphisms:
 -- 
---  - An "outward" arrow @i :: x -> f x@ by initiality.
+--  - An "outward" arrow: @i :: x -> f x@, by initiality.
 --  
---  - An "inward" arrow @a :: f x -> x@ from the definition of an
+--  - An "inward" arrow: @a :: f x -> x@, from the definition of an
 --    @f@-algebra.
 -- 
 -- Terminal coalgebras have similar arrows with their directions flipped.
 -- 
 -- Composing the arrows should give:
 -- 
---  - An inward-facing identity @'id' ~ a . i :: x -> x@.
+--  - An inward-facing identity: @'id' ~ a . i :: x -> x@.
 -- 
 --  - An outward-facing identity: @'id' ~ i . a :: f x -> f x@.
 -- 
