@@ -2,6 +2,9 @@
 module CoAlgebra where
 
 
+-- * Goal: Lambek's Lemma
+---------------------------------------------------------------------
+
 -- |
 -- Categorical evidence that @x ~ f x@ for initial algebras and terminal
 -- coalgebras.
