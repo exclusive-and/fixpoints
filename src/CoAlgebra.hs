@@ -3,8 +3,8 @@ module CoAlgebra where
 
 
 -- |
--- Categorical evidence that @x ~ f x@ for initial algebras and
--- terminal coalgebras.
+-- Categorical evidence that @x ~ f x@ for initial algebras and terminal
+-- coalgebras.
 -- 
 -- === Outline of the Lemma
 -- 
